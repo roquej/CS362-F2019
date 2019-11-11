@@ -1137,7 +1137,6 @@ int playBaron(int choice1, int currentPlayer, struct gameState *state)
             else {
                 p++;//Next card
                 p++;//Next card
-
             }
         }
     }
@@ -1226,7 +1225,7 @@ int playAmbassador(int choice1, int choice2, int currentPlayer, int handPos, str
 
     for (i = 0; i < state->handCount[currentPlayer]; i++)
     {
-        if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+        if (i != handPos && state->hand[currentPlayer][i] == choice1)
         {
             j++;
         }
@@ -1235,13 +1234,11 @@ int playAmbassador(int choice1, int choice2, int currentPlayer, int handPos, str
     {
         return -1;
     }
-
     if (DEBUG)
         printf("Player %d reveals card number: %d\n", currentPlayer, state->hand[currentPlayer][choice1]);
 
     //increase supply count for choosen card by amount being discarded
     state->supplyCount[state->hand[currentPlayer][choice1]] += 1;
-
     //each other player gains a copy of revealed card
     for (int i = 0; i < state->numPlayers; i++)
     {
@@ -1347,7 +1344,7 @@ int playMine(int choice1, int choice2, int currentPlayer, int handPos, struct ga
         return -1;
     }
 
-    if ( (getCost(state->hand[currentPlayer][choice1]) + 4) > getCost(choice2) )
+    if ( (getCost(state->hand[currentPlayer][choice1]) + 6) < getCost(choice2) )
     {
         return -1;
     }
