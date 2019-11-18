@@ -19,7 +19,6 @@ int main(int argc, char* argv[]) {
     // declare variables
     int choice1, currentPlayer, numPlayers,
         preBuys, preCoins, postBuys, postCoins;
-  //  int hadEstate;
     int wrongBuys = 0;
     int wrongCoins = 0;
     struct gameState g0, g;
@@ -28,7 +27,6 @@ int main(int argc, char* argv[]) {
 
     for(int i = 0; i < 10000; i++) {
         memcpy(&g, &g0, sizeof(struct gameState));
-     //   hadEstate = 0;
         numPlayers = 2 + rand() % 3;
         initializeGame(numPlayers, k, 1000, &g);
         currentPlayer = rand() % numPlayers;
@@ -37,11 +35,7 @@ int main(int argc, char* argv[]) {
             choice1 = 0;
         } else choice1 = 1;
         gainCard(baron, &g, 2, currentPlayer);
-       // for(int j = 0; j < g.handCount[currentPlayer]; j++) {
-       //     if(g.hand[currentPlayer][j] == estate) {
-       //         hadEstate = 1;
-       //     }
-       // }
+
         if(rand() % 100 < 50) {
             g.supplyCount[estate] = 0;
         }
