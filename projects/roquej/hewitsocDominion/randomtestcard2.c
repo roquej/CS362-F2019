@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
             drawCard(currentPlayer, &g);
         }
 
-        playMinion(choice1, choice2, 0, currentPlayer, &g);
+        minionRefactor(choice1, choice2, currentPlayer, &g, 0);
 
         postCoins = g.coins;
         postActions = g.numActions;

@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     int silvers[MAX_HAND];
     int golds[MAX_HAND];
     
-    printf("Begin Unit Test for playMinion:\n");
+    printf("Begin Unit Test for minionRefactor:\n");
 
     // testing choice to gain 2 coins
     struct gameState G;
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     gainCard(minion, &G, 2, 0); // add minion card to first player's hand
     int preCoins = G.coins;
     int preNumActions = G.numActions;
-    playMinion(1, 0, 0, 0, &G); // play the refactored function
+    minionRefactor(1, 0, 0, &G, 0); // play the refactored function
     int postCoins = G.coins;
     int postNumActions = G.numActions;
     if(preCoins + 2 != postCoins) { // assertion for number of coins added
@@ -51,11 +51,11 @@ int main(int argc, char *argv[]) {
         gainCard(0, &H, 2, 1);
     }
     gainCard(minion, &H, 2, 0); // add minion card to first player's hand
-    playMinion(0, 1, 0, 0, &H);
+    minionRefactor(0, 1, 0, &H, 0);
     if(H.handCount[1] != 4) { // check second player redraws 4 cards
         printf("Error- when first player chooses to discard hand, second player did not redraw 4 cards.\n");
     }
 
-    printf("playMinion Unit Test completed.\n\n");
+    printf("minionRefactor Unit Test completed.\n\n");
     return 0;
 }

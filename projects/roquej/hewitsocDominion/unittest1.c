@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     int silvers[MAX_HAND];
     int golds[MAX_HAND];
     
-    printf("Begin Unit Test for playBaron:\n");
+    printf("Begin Unit Test for baronRefactor:\n");
 
     // testing choice to gain an estate
     struct gameState G;
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     gainCard(baron, &G, 2, 0);
     int preEstateCount = G.supplyCount[estate];
     int preNumBuys = G.numBuys;
-    playBaron(0, 0, &G);
+    baronRefactor(0, 0, &G);
     int postEstateCount = G.supplyCount[estate];
     int postNumBuys = G.numBuys;
     // assertions
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     }
     gainCard(baron, &F, 2, 0); // add baron card to first player's hand
     gainCard(estate, &F, 2, 0); // add estate card to first player's hand
-    playBaron(1, 0, &F);
+    baronRefactor(1, 0, &F);
     int postCoins = F.coins;
     // assertions
     if(preCoins + 4 != postCoins) {
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
         discardCard(0, 0, &H, 0);
     }
     gainCard(baron, &H, 2, 0); // add baron card to first player's hand
-    playBaron(1, 0, &H);
+    baronRefactor(1, 0, &H);
 
     // assertions
     int count = 0;
@@ -82,6 +82,6 @@ int main(int argc, char *argv[]) {
         printf("Error- estate card not added to discard pile when choosing to discard an estate with no estate card in hand.\n");       
     }
 
-    printf("playBaron Unit Test completed.\n\n");
+    printf("baronRefactor Unit Test completed.\n\n");
     return 0;
 }

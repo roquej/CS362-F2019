@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
         preBuys = g.numBuys;
         preCoins = g.coins;
 
-        playBaron(choice1, currentPlayer, &g);
+        baronRefactor(choice1, currentPlayer, &g);
 
         postCoins = g.coins;
         postBuys = g.numBuys;

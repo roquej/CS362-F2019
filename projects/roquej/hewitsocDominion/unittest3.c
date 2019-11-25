@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     int silvers[MAX_HAND];
     int golds[MAX_HAND];
     
-    printf("Begin Unit Test for playAmbassador:\n");
+    printf("Begin Unit Test for ambassadorRefactor:\n");
 
     // testing choice to return 2 copies with 2 other players
     struct gameState G;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
         gainCard(minion, &G, 2, 0); 
     }    
     int preSupply = G.supplyCount[minion];
-    playAmbassador(minion, 2, 0, 0, &G);
+    ambassadorRefactor(minion, 2, 0, &G, 0);
     int postSupply = G.supplyCount[minion];
 
     if(preSupply == postSupply) { // assert supply count is correctly adjusted in function
@@ -82,10 +82,10 @@ int main(int argc, char *argv[]) {
     for(int i = 0; i < 2; i++) { // add two copies of minion card to first player's hand
         gainCard(minion, &G1, 2, 0);
     }
-    if(playAmbassador(minion, -1, 0, 0, &G1) != -1) { // assert choice2 = -1
+    if(ambassadorRefactor(minion, -1, 0, &G1, 0) != -1) { // assert choice2 = -1
         printf("Error- invalid choice2 = -1 parameter did not return -1.\n");
     }
-    if(playAmbassador(minion, 3, 0, 0, &G1) != -1) { // assert choice2 = 3
+    if(ambassadorRefactor(minion, 3, 0, &G1, 0) != -1) { // assert choice2 = 3
         printf("Error- invalid choice2 = 3 parameter did not return -1.\n");
     }
 
@@ -97,10 +97,10 @@ int main(int argc, char *argv[]) {
     }
     gainCard(ambassador, &G2, 2, 0); // add ambassador card to first player's hand
     gainCard(minion, &G1, 2, 0);  // add minion card to first player's hand
-    if(playAmbassador(minion, 2, 0, 0, &G2) != -1) { // assert -1 is thrown for insufficient quantity of chosen card
+    if(ambassadorRefactor(minion, 2, 0, &G2, 0) != -1) { // assert -1 is thrown for insufficient quantity of chosen card
         printf("Error- insufficient quantity of chosen card to return.\n");
     }
 
-    printf("playAmbassador Unit Test completed.\n\n");
+    printf("ambassadorRefactor Unit Test completed.\n\n");
     return 0;
 }

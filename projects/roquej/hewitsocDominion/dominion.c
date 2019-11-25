@@ -716,7 +716,8 @@ int baronRefactor(int choice1, int currentPlayer, struct gameState *state)
             }
 
             else {
-                p=0;//Next card
+              // this bug causes an infinite loop  p=0;//Next card
+              p++;
             }
         }
     }
@@ -882,7 +883,8 @@ int tributeRefactor(int currentPlayer, int nextPlayer, int tributeRevealedCards[
         tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
-        tributeRevealedCards[2] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+        tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
+        // tributeRevealedCards[2] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1]; // this causes an out of bounds access error
         state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
         state->deckCount[nextPlayer]--;
     }
@@ -893,7 +895,8 @@ int tributeRefactor(int currentPlayer, int nextPlayer, int tributeRevealedCards[
         tributeRevealedCards[1] = -1;
     }
 
-    for (i = 0; i <= 2; i ++) {
+    for (i = 0; i < 2; i ++) {
+    //for (i = 0; i <= 2; i ++) { // this causes an out of bounds access error
         if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
             state->coins += 2;
         }

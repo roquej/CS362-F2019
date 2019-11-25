@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
         preCoins = g.coins;
         preCards = g.handCount[currentPlayer];
 
-        playTribute(revealedCards, currentPlayer, nextPlayer, &g);
+        tributeRefactor(currentPlayer, nextPlayer, revealedCards, &g);
 
         postActions = g.numActions;
         postCoins = g.coins;

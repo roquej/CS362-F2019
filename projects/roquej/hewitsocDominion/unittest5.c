@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     int silvers[MAX_HAND];
     int golds[MAX_HAND];
     
-    printf("Begin Unit Test for playMine:\n");
+    printf("Begin Unit Test for mineRefactor:\n");
 
     // test trying to trash a non-treasure card
     struct gameState G1;
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     }
     gainCard(curse, &G1, 2, 0); // add a curse card to player one's hand
     gainCard(mine, &G1, 2, 0); // add a mine card to player one's hand
-    if(playMine(0, copper, 0, 1, &G1) != -1) { // assert that trying a non-treasure card returns -1
+    if(mineRefactor(0, copper, 0, &G1, 1) != -1) { // assert that trying a non-treasure card returns -1
         printf("Error- trashing a non-treasure card should have returned -1.\n");
     }
 
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     }
     gainCard(copper, &G4, 2, 0); // add a copper card to player one's hand
     gainCard(mine, &G4, 2, 0); // add a mine card to player one's hand
-    if(playMine(0, curse, 0, 1, &G4) != -1) { // assert that trying to gain a curse card returns -1
+    if(mineRefactor(0, curse, 0, &G4, 1) != -1) { // assert that trying to gain a curse card returns -1
         printf("Error- trying to gain a curse card should have returned -1.\n");
     }
 
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     }
     gainCard(copper, &G3, 2, 0); // add a copper card as the first card in player one's hand
     gainCard(mine, &G3, 2, 0); // add a mine card to player one's hand
-    playMine(0, silver, 0, 1, &G3); // play function
+    mineRefactor(0, silver, 0, &G3, 1); // play function
     // assert that copper card was trashed
     int count = 0;
     for(int i = 0; i < G3.handCount[0]; i++) {
@@ -78,11 +78,11 @@ int main(int argc, char *argv[]) {
     }
     gainCard(copper, &G2, 2, 0); // add a copper to player one's hand
     gainCard(mine, &G2, 2, 0); // add a mine card to player one's hand
-    if(playMine(copper, gold, 0, 0, &G2) != -1) { // assert to check function call returns -1
+    if(mineRefactor(copper, gold, 0, 0, &G2) != -1) { // assert to check function call returns -1
         printf("Error- able to use the mine card to trash a copper card for a gold card.\n");
     }
     */
 
-    printf("playMine Unit Test completed.\n\n");
+    printf("mineRefactor Unit Test completed.\n\n");
     return 0;
 }
