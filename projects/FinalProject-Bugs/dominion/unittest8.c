@@ -1,3 +1,5 @@
+// Thomas Sugimoto
+
 #include "dominion.h"
 #include <stdio.h>
 #include "rngs.h"
@@ -52,13 +54,13 @@ int main (int argc, char** argv) {
         numCoins = G.coins;
         cardEffect(embargo, 0, 0, 0, &G, 0, 0);
         if(G.coins != numCoins + 2)
-            printf("-Error: Bug #8 embargo1's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 2, G.coins);
+            printf("-Error: Bug #8 embargo's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 2, G.coins);
 
         // Check for cutpurse
         numCoins = G.coins;
         cardEffect(cutpurse, 0, 0, 0, &G, 0, 0);
         if(G.coins != numCoins + 2)
-            printf("-Error: Bug #8 embargo2's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 2, G.coins);
+            printf("-Error: Bug #8 cutpurse's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 2, G.coins);
         
     }
     printf("Test completed!\n\n");

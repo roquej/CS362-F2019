@@ -1,3 +1,5 @@
+// Thomas Sugimoto
+
 #include "dominion.h"
 #include <stdio.h>
 #include "rngs.h"
@@ -23,7 +25,7 @@ int main (int argc, char** argv) {
         printf("-Error: Can't initialize Game\n");
     }
     else {
-        int realScore = discardCreate(&G, 4, 5, 4);
+        int realScore = discardCreate(&G, 4, 8, 3);
         
         if(realScore != scoreFor(p1, &G)) {
             printf("-Error: Bug #5 Expected:%d Actual:%d Num of cards=%d\n", 
@@ -35,13 +37,14 @@ int main (int argc, char** argv) {
 }
 
 int discardCreate(struct gameState *G, int handMax, int discardMax, int deckMax) {
-    enum CARD deck[] = {gold, silver, smithy, gold, copper, village, copper};
+    enum CARD deck[] = {gardens, silver, great_hall, gold, copper, village, copper, 
+                        curse, duchy, province, estate};
     int score = 0;
     int temp;
     for (int i = 0; i < 1; i++) {
         G->handCount[i] = 0;
         for (int j = 0; j < handMax; j++) {
-            temp = deck[rand() % 7];
+            temp = deck[rand() % 11];
             G->hand[i][j] = temp;
             G->handCount[i]++;
             if (temp == curse) {
@@ -66,7 +69,7 @@ int discardCreate(struct gameState *G, int handMax, int discardMax, int deckMax)
 
         G->discardCount[i] = 0;
         for (int j = 0; j < discardMax; j++) {
-            temp = deck[rand() % 7];
+            temp = deck[rand() % 11];
             G->discard[i][j] = temp;
             G->discardCount[i]++;
             if (temp == curse) {
@@ -91,7 +94,7 @@ int discardCreate(struct gameState *G, int handMax, int discardMax, int deckMax)
 
         G->deckCount[i] = 0;
         for (int j = 0; j < deckMax; j++) {
-            temp = deck[rand() % 7];
+            temp = deck[rand() % 11];
             G->deck[i][j] = temp;
             G->deckCount[i]++;
             if (temp == curse) {

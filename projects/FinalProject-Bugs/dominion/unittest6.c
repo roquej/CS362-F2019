@@ -1,3 +1,5 @@
+// Thomas Sugimoto
+
 #include "dominion.h"
 #include <stdio.h>
 #include "rngs.h"
@@ -21,9 +23,9 @@ int main (int argc, char** argv) {
     if(r == -1)
         printf("-Error: Can't initialize Game\n");    
     else {
-        int numDiscard = G.discardCount[p1];
+        int numDiscard = 6;
         G.whoseTurn = 0;
-        handCreate(&G, 4, 3, numDiscard);
+        handCreate(&G, 8, 3, numDiscard);
         G.coins = updateCoins(p1, &G, 0);
         int coins = G.coins;
         cardEffect(feast, mine, 0, 0, &G, 0, 0);
