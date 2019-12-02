@@ -9,11 +9,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/*
-In the remodel case within the cardEffect function,
-the if statement that compares the two choice statements needs to be switched (around Line #846).
-*/
-
 int main(int argc, char *argv[]) {
     int k[10] = {remodel, tribute, feast, gardens, mine, baron, smithy, village, adventurer, great_hall};
     int b[1] = {0};
