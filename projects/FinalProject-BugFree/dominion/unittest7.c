@@ -1,6 +1,7 @@
 // Thomas Sugimoto
 
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include <stdio.h>
 #include "rngs.h"
 #include <stdlib.h>
@@ -24,10 +25,11 @@ int main (int argc, char** argv) {
         printf("-Error: Can't initialize Game\n");    
     else{
         int numHand = 5;
+        int bonus = 0;
         int numActions = G.numActions;
         handCreate(&G, numHand, 7);
         
-        int out = cardEffect(tribute, 0, 0, 0, &G, 0, 0);
+        int out = cardEffect(tribute, 0, 0, 0, &G, 0, &bonus);
         if(out != 0) {
             printf("-Error: Bug #7 tribute didn't finish\n");
         }

@@ -1,6 +1,7 @@
 // Thomas Sugimoto
 
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include <stdio.h>
 #include "rngs.h"
 #include <stdlib.h>
@@ -14,7 +15,6 @@ int main (int argc, char** argv) {
 
     printf("Begin Testing for Bug #5\n");
 
-    // set up
     int k[10] = { adventurer, council_room, feast, gardens, mine
                 , remodel, smithy, village, baron, great_hall };
     struct gameState G;

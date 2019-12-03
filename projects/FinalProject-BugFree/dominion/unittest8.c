@@ -1,6 +1,7 @@
 // Thomas Sugimoto
 
 #include "dominion.h"
+#include "dominion_helpers.h"
 #include <stdio.h>
 #include "rngs.h"
 #include <stdlib.h>
@@ -19,7 +20,7 @@ int main (int argc, char** argv) {
     struct gameState G;
     int numPlayers = 2;
     int p1 = 0;
-    int p2 = 1;
+    //int p2 = 1;
     int r = initializeGame(numPlayers, k, 4, &G); // initialize a new game
     G.whoseTurn = p1;
     if(r == -1)
@@ -27,40 +28,56 @@ int main (int argc, char** argv) {
     else {
         int numHand = 5;
         handCreate(&G, numHand, 7);
+        int bonus = 0;
+        int numCoins = G.coins; 
 
-        int numCoins = G.coins;        
-        // Check for Baron
-        G.hand[p1][0] = estate;
-        cardEffect(baron, 1, 0, 0, &G, 0, 0);
+         // Check for tribute
+        bonus = 0;
+        G.coins = 0;
+        updateCoins(G.whoseTurn, &G, bonus);
+        numCoins = G.coins;
+        cardEffect(tribute, 0, 0, 0, &G, 0, &bonus);
         if(G.coins != numCoins + 4)
-            printf("-Error: Bug #8 baron's bonus coin count is incorrect (expected: %d, actual:%d)-\n", numCoins + 4, G.coins);
+            printf("-Error: Bug #8 tribute's bonus coin count is incorrect(expected: %d, actual:%d,bonus:%d)\n", numCoins + 4, G.coins, bonus);
+
+        // Check for Baron
+        bonus = 0;
+        G.coins = 0;
+        G.hand[p1][0] = estate;
+        updateCoins(G.whoseTurn, &G, bonus);
+        numCoins = G.coins;
+        cardEffect(baron, 1, 0, 0, &G, 0, &bonus);
+        if(G.coins != numCoins + 4)
+            printf("-Error: Bug #8 baron's bonus coin count is incorrect(expected: %d, actual:%d,bonus:%d)\n", numCoins + 4, G.coins, bonus);
 
         // Check for minion
+        bonus = 0;
+        G.coins = 0;
+        G.hand[p1][0] = minion;
+        updateCoins(G.whoseTurn, &G, bonus);
         numCoins = G.coins;
-        cardEffect(minion, 1, 0, 0, &G, 0, 0);
+        cardEffect(minion, 1, 0, 0, &G, 0, &bonus);
         if(G.coins != numCoins + 2)
-            printf("-Error: Bug #8 minion's bonus coin count is incorrect (expected: %d, actual:%d)\n", numCoins + 2, G.coins);
+            printf("-Error: Bug #8 minion's bonus coin count is incorrect(expected: %d, actual:%d,bonus:%d)\n", numCoins + 2, G.coins, bonus);
 
-        // Check for tribute
-        numCoins = G.coins;
-        G.deck[p2][7] = copper;
-        G.deck[p2][6] = gold;
-        G.deck[p2][8] = silver;
-        cardEffect(tribute, 0, 0, 0, &G, 0, 0);
-        if(G.coins != numCoins + 4)
-            printf("-Error: Bug #8 tribute's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 4, G.coins);
         
         // Check for embargo
+        bonus = 0;
+        G.coins = 0;
+        updateCoins(G.whoseTurn, &G, bonus);
         numCoins = G.coins;
-        cardEffect(embargo, 0, 0, 0, &G, 0, 0);
+        cardEffect(embargo, 0, 0, 0, &G, 0, &bonus);
         if(G.coins != numCoins + 2)
-            printf("-Error: Bug #8 embargo's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 2, G.coins);
+            printf("-Error: Bug #8 embargo's bonus coin count is incorrect(expected: %d, actual:%d,bonus:%d)\n", numCoins + 2, G.coins, bonus);
 
         // Check for cutpurse
+        bonus = 0;
+        G.coins = 0;
+        updateCoins(G.whoseTurn, &G, bonus);
         numCoins = G.coins;
-        cardEffect(cutpurse, 0, 0, 0, &G, 0, 0);
+        cardEffect(cutpurse, 0, 0, 0, &G, 0, &bonus);
         if(G.coins != numCoins + 2)
-            printf("-Error: Bug #8 cutpurse's bonus coin count is incorrect(expected: %d, actual:%d)\n", numCoins + 2, G.coins);
+            printf("-Error: Bug #8 cutpurse's bonus coin count is incorrect(expected: %d, actual:%d,bonus:%d)\n", numCoins + 2, G.coins, bonus);
         
     }
     printf("Test completed!\n\n");
