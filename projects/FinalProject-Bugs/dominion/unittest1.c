@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     cardEffect(mine, 0, silver, 0, &G, 1, b);
 
     // assertion
-    if(G.playedCards[G.playedCardCount] != copper) {
+    if(G.playedCards[1] == copper) {
         printf("Bug found: copper card was never trashed from the player's hand.\n");
     } else {
         printf("Success: copper card was correctly trashed from the player's hand.\n");
