@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
     if(num == -1) {
         printf("Bug found: -1 was incorrectly returned when attempting to trash a gold for a copper.\n");
     } else {
-        printf("Success: -1 was not returned when attempting to trash a gold for a silver.\n");
+        printf("Success: -1 was not returned when attempting to trash a gold for a copper.\n");
     }
 
     printf("Bug #2 Unit Test completed.\n\n");
