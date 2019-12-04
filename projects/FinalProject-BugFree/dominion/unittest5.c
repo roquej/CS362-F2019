@@ -1,4 +1,7 @@
 // Thomas Sugimoto
+// sugimoth@oregonstate.edu
+// CS362-F2019
+// Unit Test
 
 #include "dominion.h"
 #include "dominion_helpers.h"
