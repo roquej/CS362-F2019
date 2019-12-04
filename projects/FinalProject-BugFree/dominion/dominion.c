@@ -954,19 +954,19 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         return 0;
 
     case minion:
-        //+1 action
-        state->numActions++;
-
-        //discard card from hand
-        discardCard(handPos, currentPlayer, state, 0);
-
 		if (choice1)
         {
+            // +1 action
+            state->numActions++;
             *bonus += 2;
             updateCoins(currentPlayer, state, *bonus);
+            //discard card from hand
+            discardCard(handPos, currentPlayer, state, 0);
         }
         else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
         {
+            // +1 action
+            state->numActions++;
             //discard hand
             while(numHandCards(state) > 0)
             {
@@ -1001,6 +1001,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 }
             }
 
+        }
+        else {
+            if(DEBUG) {
+                printf("Must choose either choice 1 or choice 2\n");
+            }
+            return -1;
         }
         return 0;
 
@@ -1091,7 +1097,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
             }
             else if (tributeRevealedCards[i] == -1){
-                i++; // do nothing
+                // do nothing for duplicate cards
+                if (DEBUG) {
+                    printf("Both revealed cards are the same");
+                }
             }
             else { //Action Card
                 state->numActions = state->numActions + 2;
@@ -1118,7 +1127,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+            if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i != choice1)
             {
                 j++;
             }
